@@ -1,0 +1,129 @@
+@import "./scss/variables";
+
+* {
+  margin: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  display: flex;
+  background: $mustard;
+}
+
+h1,
+h2 {
+  font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+h3,
+p {
+  font-family: "Neue Montreal Light", Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 14.4rem;
+}
+
+.container {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#description {
+  margin: 10rem 0;
+  line-height: 5.8rem;
+
+  p {
+    font-size: 4.8rem;
+    font-style: normal;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px $black;
+  }
+}
+
+#projects {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    margin: 2.5rem 0;
+    position: relative;
+    font-size: 7.2rem;
+    letter-spacing: 0.165rem;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px $black;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    span {
+      position: absolute;
+      top: -2rem;
+      font-family: "Neue Montreal Light", Arial, Helvetica, sans-serif;
+      font-weight: 300;
+      font-size: 3.6rem;
+      -webkit-text-stroke: 1px $black;
+
+      &.num-l {
+        left: -4.5rem;
+      }
+
+      &.num-r {
+        left: auto;
+      }
+    }
+
+    &.light {
+      -webkit-text-fill-color: $mustard;
+    }
+  }
+}
+
+#band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  background: $black;
+  order: 1;
+
+  h3 {
+    min-width: 80rem;
+    font-size: 4.8rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    -webkit-text-fill-color: $mustard;
+    transform: rotate(-90deg);
+
+    span {
+      font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
+    }
+  }
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
