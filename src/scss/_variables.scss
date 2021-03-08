@@ -17,3 +17,52 @@
 
 $mustard: #f2d091;
 $black: #000000;
+
+$mobile-min: 320px;
+$mobile-max: 480px;
+
+$tablet: 1024px;
+$small-tablet-min: 768px;
+$small-tablet-max: 1023px;
+
+$desktop: 1200px;
+$desktop-large: 1440px;
+
+/**
+* MOBILE
+*/
+@mixin mobile-screen {
+  @media (min-width: #{$mobile-min}) and (max-width: #{$mobile-max}) {
+    @content;
+  }
+}
+
+/**
+* TABLET
+*/
+@mixin small-tablet-screen {
+  @media (min-width: #{$small-tablet-min}) and (max-width: #{$small-tablet-max}) {
+    @content;
+  }
+}
+
+@mixin tablet-screen {
+  @media (min-width: #{$tablet}) and (max-width: #{$desktop}) {
+    @content;
+  }
+}
+
+@mixin common-tablet-screen {
+  @media (min-width: #{$small-tablet-min}) and (max-width: #{$desktop}) {
+    @content;
+  }
+}
+
+/**
+* DESKTOP
+*/
+@mixin desktop-screen {
+  @media (min-width: #{$desktop}) and (max-width: #{$desktop-large}) {
+    @content;
+  }
+}
