@@ -3,9 +3,7 @@ import DebugPanel from "./js/debugPanel";
 
 const init = () => {
   new Sketch();
-  new DebugPanel({ visibility: true });
+  new DebugPanel({ visibility: false });
 };
 
-console.log("hello");
-
-// init();
+init();
