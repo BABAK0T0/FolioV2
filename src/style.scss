@@ -12,7 +12,7 @@ html {
 
 body {
   display: flex;
-  background: $mustard;
+  background: $main-color;
 
   @include mobile-screen {
     flex-direction: column;
@@ -167,7 +167,7 @@ a {
     }
 
     &.light {
-      -webkit-text-fill-color: $mustard;
+      color: transparent;
     }
   }
 }
@@ -235,9 +235,14 @@ footer {
 
   .social {
     flex: 1;
-    display: flex;
-    flex-direction: column;
     line-height: 4.2rem;
+
+    .social--flex {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
     @include mobile-screen {
       line-height: 1.8rem;
     }
@@ -247,6 +252,7 @@ footer {
     }
 
     a {
+      width: fit-content;
       font-size: 3.6rem;
       letter-spacing: 0.1rem;
       -webkit-text-stroke: 1px $black;
@@ -272,6 +278,7 @@ footer {
   width: 10rem;
   background: $black;
   // order: 1;
+  opacity: 0.2;
 
   @include mobile-screen {
     order: 2;
@@ -284,7 +291,7 @@ footer {
     font-size: 4.8rem;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
-    -webkit-text-fill-color: $mustard;
+    -webkit-text-fill-color: $main-color;
     transform: rotate(-90deg);
 
     @include mobile-screen {
@@ -306,4 +313,5 @@ footer {
   top: 0;
   left: 0;
   outline: none;
+  z-index: -1;
 }
