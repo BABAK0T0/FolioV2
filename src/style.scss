@@ -278,7 +278,6 @@ footer {
   width: 10rem;
   background: $black;
   // order: 1;
-  opacity: 0.2;
 
   @include mobile-screen {
     order: 2;
