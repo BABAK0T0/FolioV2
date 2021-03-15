@@ -1,21 +1,19 @@
 import * as THREE from "three";
-// import vertex from "../shader/vertex.glsl";
-// import fragment from "../shader/fragment.glsl";
+import vertex from "../shader/vertex.glsl";
+import fragment from "../shader/fragment.glsl";
+import gsap from "gsap";
 
 export default class Sketch {
   constructor(options) {
-    console.log("CONSTRUCTOR");
-    // this.clock = new THREE.Clock();
+    this.clock = new THREE.Clock();
 
     // Get canvas and band from DOM
     this.canvas = document.querySelector("canvas.webgl");
-    this.band = document.getElementById("band");
+    this.main = document.querySelector("div.container");
+    // this.band = document.getElementById("band");
 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-
-    console.log(`constructorWidth ${this.width}`);
-    console.log(`constructorHeight ${this.height}`);
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
@@ -41,7 +39,11 @@ export default class Sketch {
     this.render = this.render.bind(this);
     this.resize = this.resize.bind(this);
 
-    this.addBandRect();
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2();
+
+    this.addMainRect();
+    this.onMouseMove();
     this.resize();
     this.setupResize();
     this.setPosition();
@@ -49,21 +51,50 @@ export default class Sketch {
     this.render();
   }
 
+  onMouseMove() {
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        this.mouse.x = (e.clientX / this.width) * 2 - 1;
+        this.mouse.y = -(e.clientY / this.height) * 2 + 1;
+
+        // update the picking ray with the camera and mouse position
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+
+        // calculate objects intersecting the picking ray
+        const intersects = this.raycaster.intersectObjects(this.scene.children);
+
+        if (intersects.length) {
+          const obj = intersects[0].object;
+          obj.material.uniforms.uHover.value = intersects[0].uv;
+        }
+      },
+      false
+    );
+
+    this.main.addEventListener("mouseenter", (e) => {
+      gsap.to(this.material.uniforms.uHoverState, {
+        duration: 1,
+        value: 1,
+      });
+    });
+
+    this.main.addEventListener("mouseout", (e) => {
+      gsap.to(this.material.uniforms.uHoverState, {
+        duration: 1,
+        value: 0,
+      });
+    });
+  }
+
   setupResize() {
-    console.log("SETUP_RESIZE");
     window.addEventListener("resize", this.resize);
   }
 
   resize() {
-    console.log("RESIZE");
-    console.log(`initialWidth ${this.width}`);
-    console.log(`initialHeight ${this.height}`);
     // Update sizes
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-
-    console.log(`resizeWidth ${this.width}`);
-    console.log(`resizeHeight ${this.height}`);
 
     // Update camera
     this.camera.aspect = this.width / this.height;
@@ -79,33 +110,28 @@ export default class Sketch {
     this.setPosition();
   }
 
-  addBandRect() {
-    console.log("ADD_BAND_RECT");
-    const bandRect = this.band.getBoundingClientRect();
+  addMainRect() {
+    const bandRect = this.main.getBoundingClientRect();
 
-    const material = new THREE.ShaderMaterial({
-      vertexShader: `
-        void main() {
-          gl_Position = projectionMatrix 
-            * modelViewMatrix 
-            * vec4( position, 1.0 );
-        }
-      `,
-      fragmentShader: `
-        void main() {
-          gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
-        }
-      `,
+    this.material = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 },
+        uHover: { value: new THREE.Vector2(0.5) },
+        uHoverState: { value: 0 },
+        uFromColor: { value: new THREE.Color(0x000000) },
+        uToColor: { value: new THREE.Color(0xcadfff) },
+      },
+      vertexShader: vertex,
+      fragmentShader: fragment,
       side: THREE.DoubleSide,
       // wireframe: true,
     });
 
     const geometry = new THREE.PlaneGeometry(1, 1, 10, 10);
-    const mesh = new THREE.Mesh(geometry, material);
-    // mesh.scale.set(bandRect.width, bandRect.height, 1);
+    const mesh = new THREE.Mesh(geometry, this.material);
     this.scene.add(mesh);
 
-    this.bandShader = {
+    this.mainShader = {
       mesh,
       height: bandRect.height,
       width: bandRect.width,
@@ -115,9 +141,9 @@ export default class Sketch {
   }
 
   updateRect() {
-    const bandRect = this.band.getBoundingClientRect();
-    this.bandShader = {
-      ...this.bandShader,
+    const bandRect = this.main.getBoundingClientRect();
+    this.mainShader = {
+      ...this.mainShader,
       height: bandRect.height,
       width: bandRect.width,
       top: bandRect.top,
@@ -127,22 +153,22 @@ export default class Sketch {
 
   // Normalize DOM coordinates system with Three.js coordinates system
   setPosition() {
-    console.log("SET_POSITION");
-    this.bandShader.mesh.position.x =
-      this.bandShader.left - this.width / 2 + this.bandShader.width / 2;
-    this.bandShader.mesh.position.y =
-      -this.bandShader.top + this.height / 2 - this.bandShader.height / 2;
+    this.mainShader.mesh.position.x =
+      this.mainShader.left - this.width / 2 + this.mainShader.width / 2;
+    this.mainShader.mesh.position.y =
+      -this.mainShader.top + this.height / 2 - this.mainShader.height / 2;
 
-    this.bandShader.mesh.scale.set(
-      this.bandShader.width,
-      this.bandShader.height,
+    this.mainShader.mesh.scale.set(
+      this.mainShader.width,
+      this.mainShader.height,
       1
     );
-    console.log(this.bandShader.mesh.position);
   }
 
   render() {
-    // this.elapsedTime = this.clock.getElapsedTime();
+    // Update uTime on each frame
+    this.elapsedTime = this.clock.getElapsedTime();
+    this.material.uniforms.uTime.value = this.elapsedTime;
 
     // Render
     this.renderer.render(this.scene, this.camera);
