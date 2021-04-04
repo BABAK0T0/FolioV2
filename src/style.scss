@@ -1,115 +1,48 @@
 @import "./scss/variables";
+@import "./scss/commons";
 
-* {
-  margin: 0;
-  left: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-}
+@include reset;
 
 body {
   display: flex;
-  background: $main-color;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  background: $black;
 
   @include mobile-screen {
     flex-direction: column;
   }
 }
 
-h1,
-h2 {
-  font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  text-align: center;
-  color: $black;
-}
-
-h3,
-p {
-  font-family: "Neue Montreal Light", Arial, Helvetica, sans-serif;
-  text-align: center;
-  font-weight: 300;
-  color: $black;
-}
-
-a {
-  font-family: "Neue Montreal Light Italic", Arial, Helvetica, sans-serif;
-  text-align: right;
-  font-weight: 300;
-  color: $black;
-  text-decoration: none;
-}
-
-/**
-* MAIN CONTAINER
-*/
-.container {
-  // order: 2;
+#about {
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  @include mobile-screen {
-    order: 1;
-  }
+  justify-content: flex-end;
+  position: absolute;
+  top: 5rem;
+  margin-right: 10rem;
+  align-self: flex-end;
 
-  h1 {
-    font-size: 18.4rem;
-    @include mobile-screen {
-      font-size: 6.4rem;
-    }
-
-    @include small-tablet-screen {
-      font-size: 10.4rem;
-    }
-    @include tablet-screen {
-      font-size: 14.4rem;
-    }
-  }
-}
-
-/**
-* DESCRIPTION SECTION
-*/
-#description {
-  margin-top: 10rem;
-  margin-bottom: 2.5rem;
-  line-height: 5.8rem;
-
-  font-size: 4.8rem;
-  font-style: normal;
+  font-family: "Neue Montreal Light";
+  font-size: 2.6rem;
   letter-spacing: 0.1rem;
-  text-transform: uppercase;
-  -webkit-text-stroke: 1px $black;
-
-  @include mobile-screen {
-    margin-top: 6rem;
-    margin-bottom: 0;
-    font-size: 2rem;
-    line-height: 2.8rem;
-  }
-
-  @include small-tablet-screen {
-    line-height: 4.8rem;
-    font-size: 3.8rem;
-  }
-
-  @include desktop-screen {
-    margin-bottom: 10rem;
-  }
+  -webkit-text-stroke: 1px $white;
+  text-align: initial;
 }
 
 /**
 * PROJECTS SECTION
 */
 #projects {
-  min-height: 100vh;
+  height: 80vh;
+  width: 100%;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 5rem;
+  padding-left: 10rem;
 
   @include mobile-screen {
     min-height: 90vh;
@@ -124,12 +57,12 @@ a {
   }
 
   h2 {
-    margin: 2.5rem 0;
+    margin: 1rem 0;
     position: relative;
-    font-size: 7.2rem;
+    font-size: 6rem;
     letter-spacing: 0.165rem;
     text-transform: uppercase;
-    -webkit-text-stroke: 1px $black;
+    -webkit-text-stroke: 1px $white;
 
     @include mobile-screen {
       font-size: 4.2rem;
@@ -149,7 +82,7 @@ a {
       font-family: "Neue Montreal Light", Arial, Helvetica, sans-serif;
       font-weight: 300;
       font-size: 3.6rem;
-      -webkit-text-stroke: 1px $black;
+      -webkit-text-stroke: 1px $white;
       @include mobile-screen {
         font-size: 2.6rem;
       }
@@ -175,142 +108,9 @@ a {
 /**
 * FOOTER
 */
-footer {
-  margin-top: 10rem;
-  min-height: 15vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-
-  @include mobile-screen {
-    margin-top: 2rem;
-    min-height: 10vh;
-  }
-
-  @include common-tablet-screen {
-    margin-top: 0;
-    min-height: 10vh;
-  }
-
-  h3 {
-    flex: 1;
-    text-align: left;
-    font-size: 2.4rem;
-
-    @include mobile-screen {
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
-
-    @include common-tablet-screen {
-      font-weight: 700;
-    }
-
-    @include small-tablet-screen {
-      font-size: 1.8rem;
-    }
-
-    span {
-      font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
-      font-weight: 700;
-    }
-  }
-
-  p {
-    span {
-      -webkit-text-stroke: 1px $black;
-    }
-    font-size: 3.6rem;
-    letter-spacing: 0.08rem;
-
-    @include mobile-screen {
-      display: none;
-    }
-
-    @include small-tablet-screen {
-      font-size: 2.6rem;
-    }
-  }
-
-  .social {
-    flex: 1;
-    line-height: 4.2rem;
-
-    .social--flex {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-
-    @include mobile-screen {
-      line-height: 1.8rem;
-    }
-
-    @include small-tablet-screen {
-      line-height: 3.2rem;
-    }
-
-    a {
-      width: fit-content;
-      font-size: 3.6rem;
-      letter-spacing: 0.1rem;
-      -webkit-text-stroke: 1px $black;
-
-      @include mobile-screen {
-        font-size: 1.6rem;
-      }
-
-      @include small-tablet-screen {
-        font-size: 2.6rem;
-      }
-    }
-  }
-}
-
-/**
-* BAND
-*/
-#band {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 10rem;
-  background: $black;
-  // order: 1;
-
-  @include mobile-screen {
-    order: 2;
-    width: 100%;
-    margin-top: 2rem;
-  }
-
-  h3 {
-    min-width: 80rem;
-    font-size: 4.8rem;
-    letter-spacing: 0.1rem;
-    text-transform: uppercase;
-    -webkit-text-fill-color: $main-color;
-    transform: rotate(-90deg);
-
-    @include mobile-screen {
-      min-width: unset;
-      font-size: 1.8rem;
-      transform: none;
-    }
-    span {
-      font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
-    }
-  }
-}
+@include footer_;
 
 /**
 * CANVAS WEBGL
 */
-.webgl {
-  position: fixed;
-  top: 0;
-  left: 0;
-  outline: none;
-  z-index: -1;
-}
+@include webgl;

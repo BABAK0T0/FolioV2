@@ -1,0 +1,160 @@
+@import "./variables";
+
+/**
+* RESET
+*/
+@mixin reset {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 62.5%;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  h1,
+  h2 {
+    font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    color: $white;
+  }
+
+  h3,
+  p {
+    font-family: "Neue Montreal Light", Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: 300;
+    color: $white;
+  }
+
+  a {
+    font-family: "Neue Montreal Light Italic", Arial, Helvetica, sans-serif;
+    text-align: right;
+    font-weight: 300;
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+/**
+* FOOTER
+*/
+@mixin footer_ {
+  footer {
+    height: 20vh;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    padding-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mobile-screen {
+      margin-top: 2rem;
+      min-height: 10vh;
+    }
+
+    @include common-tablet-screen {
+      margin-top: 0;
+      min-height: 10vh;
+    }
+
+    h3 {
+      flex: 1;
+      text-align: left;
+      font-size: 1.4rem;
+
+      @include mobile-screen {
+        font-weight: 700;
+        font-size: 1.4rem;
+      }
+
+      @include common-tablet-screen {
+        font-weight: 700;
+      }
+
+      @include small-tablet-screen {
+        font-size: 1.8rem;
+      }
+
+      span {
+        font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
+        font-weight: 700;
+      }
+    }
+
+    p {
+      span {
+        -webkit-text-stroke: 1px $white;
+      }
+      font-size: 2.6rem;
+      letter-spacing: 0.08rem;
+
+      @include mobile-screen {
+        display: none;
+      }
+
+      @include small-tablet-screen {
+        font-size: 2.6rem;
+      }
+    }
+
+    .social {
+      flex: 1;
+      line-height: 3.2rem;
+
+      .social--flex {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      @include mobile-screen {
+        line-height: 1.8rem;
+      }
+
+      @include small-tablet-screen {
+        line-height: 3.2rem;
+      }
+
+      a {
+        width: fit-content;
+        font-size: 2.6rem;
+        letter-spacing: 0.1rem;
+        -webkit-text-stroke: 1px $white;
+
+        @include mobile-screen {
+          font-size: 1.6rem;
+        }
+
+        @include small-tablet-screen {
+          font-size: 2.6rem;
+        }
+      }
+    }
+  }
+}
+
+/**
+* CANVAS WEBGL
+*/
+@mixin webgl {
+  .webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: -1;
+  }
+}

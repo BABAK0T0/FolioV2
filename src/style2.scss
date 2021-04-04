@@ -1,0 +1,71 @@
+@import "./scss/variables";
+@import "./scss/commons";
+
+@include reset;
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  background: $black;
+
+  @include mobile-screen {
+    flex-direction: column;
+  }
+}
+
+h1 {
+  height: 30vh;
+  font-size: 14rem;
+  @include mobile-screen {
+    font-size: 6.4rem;
+  }
+
+  @include small-tablet-screen {
+    font-size: 10.4rem;
+  }
+  @include tablet-screen {
+    font-size: 14.4rem;
+  }
+}
+
+/**
+* DESCRIPTION SECTION
+*/
+#description {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    line-height: 4rem;
+    font-size: 3.5rem;
+    font-style: normal;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px $white;
+
+    @include mobile-screen {
+      margin-top: 6rem;
+      margin-bottom: 0;
+      font-size: 2rem;
+      line-height: 2.8rem;
+    }
+
+    @include small-tablet-screen {
+      line-height: 4.8rem;
+      font-size: 3.8rem;
+    }
+  }
+}
+
+/**
+* FOOTER
+*/
+@include footer_;
+
+/**
+* CANVAS WEBGL
+*/
+@include webgl;
