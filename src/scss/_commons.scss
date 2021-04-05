@@ -61,14 +61,9 @@
     align-items: center;
 
     @include mobile-screen {
-      margin-top: 2rem;
-      min-height: 10vh;
+      padding-left: 6rem;
+      padding-right: 6rem;
     }
-
-    // @include common-tablet-screen {
-    //   margin-top: 0;
-    //   min-height: 10vh;
-    // }
 
     h3 {
       flex: 1;
@@ -104,7 +99,6 @@
 
       @include small-tablet-screen {
         visibility: hidden;
-        // font-size: 2.6rem;
       }
     }
 

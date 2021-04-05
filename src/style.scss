@@ -32,6 +32,10 @@ body {
   @include tablet-screen {
     font-size: 3.6rem;
   }
+
+  @include mobile-screen {
+    margin-right: 6rem;
+  }
 }
 
 /**
@@ -49,17 +53,17 @@ body {
   padding-left: 10rem;
 
   @include mobile-screen {
-    min-height: 90vh;
+    align-items: center;
+    padding-left: 0;
+    padding-top: 10rem;
   }
 
   @include small-tablet-screen {
-    // min-height: 85vh;
     align-items: center;
     padding-left: 0;
   }
 
   @include tablet-screen {
-    // min-height: 70vh;
     align-items: center;
     padding-left: 0;
   }
@@ -75,10 +79,6 @@ body {
     @include mobile-screen {
       font-size: 4.2rem;
     }
-
-    // &:first-child {
-    // margin-top: 0;
-    // }
 
     @include tablet-screen {
       font-size: 8rem;
