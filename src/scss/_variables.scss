@@ -67,3 +67,9 @@ $desktop-large: 1440px;
     @content;
   }
 }
+
+@mixin large-desktop-screen {
+  @media (min-width: #{$desktop-large}) {
+    @content;
+  }
+}

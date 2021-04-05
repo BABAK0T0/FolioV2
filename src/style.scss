@@ -90,6 +90,10 @@ body {
       margin: 2.5rem 0;
     }
 
+    @include large-desktop-screen {
+      font-size: 8rem;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }

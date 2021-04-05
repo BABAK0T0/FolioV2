@@ -15,18 +15,27 @@ body {
   }
 }
 
-h1 {
+header {
   height: 30vh;
-  font-size: 14rem;
-  @include mobile-screen {
-    font-size: 6.4rem;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  @include small-tablet-screen {
-    font-size: 10.4rem;
+  @include mobile-screen {
+    height: 20vh;
   }
-  @include tablet-screen {
-    font-size: 14.4rem;
+  h1 {
+    font-size: 14rem;
+    @include mobile-screen {
+      font-size: 6.4rem;
+    }
+
+    @include small-tablet-screen {
+      font-size: 12.4rem;
+    }
+    @include tablet-screen {
+      font-size: 16.4rem;
+    }
   }
 }
 
@@ -38,6 +47,11 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include mobile-screen {
+    height: 60vh;
+  }
+
   p {
     line-height: 4rem;
     font-size: 3.5rem;
@@ -47,15 +61,19 @@ h1 {
     -webkit-text-stroke: 1px $white;
 
     @include mobile-screen {
-      margin-top: 6rem;
       margin-bottom: 0;
       font-size: 2rem;
-      line-height: 2.8rem;
+      line-height: 4.4rem;
     }
 
     @include small-tablet-screen {
       line-height: 4.8rem;
       font-size: 3.8rem;
+    }
+
+    @include tablet-screen {
+      line-height: 6rem;
+      font-size: 4.5rem;
     }
   }
 }

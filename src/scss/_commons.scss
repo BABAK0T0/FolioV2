@@ -80,6 +80,10 @@
         font-size: 1.8rem;
       }
 
+      @include large-desktop-screen {
+        font-size: 2.6rem;
+      }
+
       span {
         font-family: "Neue Montreal Bold", Arial, Helvetica, sans-serif;
         font-weight: 700;
