@@ -47,7 +47,6 @@ export default class Sketch {
       texture: null,
       wireframe: false,
     });
-    this.project_1.mesh.scale.set(1.2, 1.2, 0);
 
     this.project_2 = new Plane({
       scene: this.scene,
@@ -55,10 +54,8 @@ export default class Sketch {
       texture: null,
       wireframe: true,
     });
-    this.project_2.mesh.position.x = 3;
 
-    this.group.add(this.project_1.mesh);
-    this.group.add(this.project_2.mesh);
+    this.group.add(this.project_1.mesh, this.project_2.mesh);
     this.scene.add(this.group);
   }
 
