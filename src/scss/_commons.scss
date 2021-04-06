@@ -57,6 +57,9 @@
 */
 @mixin footer_ {
   footer {
+    // border: 2px solid blue;
+    position: fixed;
+    bottom: 0;
     height: 20vh;
     padding-left: 10rem;
     padding-right: 10rem;

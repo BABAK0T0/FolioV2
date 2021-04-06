@@ -4,9 +4,6 @@
 @include reset;
 
 body {
-  display: flex;
-  flex-direction: column;
-  position: relative;
   height: 100vh;
   background: $black;
 
@@ -16,13 +13,6 @@ body {
 }
 
 #about {
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  top: 5rem;
-  margin-right: 10rem;
-  align-self: flex-end;
-
   font-family: "Neue Montreal Light";
   font-size: 2.6rem;
   letter-spacing: 0.1rem;
@@ -38,18 +28,33 @@ body {
   }
 }
 
+header {
+  position: fixed;
+  top: 5rem;
+  right: 10rem;
+}
+
+main {
+  // border: 2px solid green;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
 /**
 * PROJECTS SECTION
 */
 #projects {
-  height: 80vh;
-  width: 100%;
-
+  // border: 2px solid rebeccapurple;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 5rem;
+  // padding-top: 5rem;
+  padding-bottom: 20rem;
   padding-left: 10rem;
 
   @include mobile-screen {
@@ -76,69 +81,72 @@ body {
     padding-bottom: 2rem;
   }
 
-  h2 {
-    margin: 1rem 0;
-    position: relative;
-    font-size: 6rem;
-    letter-spacing: 0.165rem;
-    text-transform: uppercase;
-    -webkit-text-stroke: 1px $white;
-
-    @include mobile-screen {
-      font-size: 4.2rem;
-    }
-
-    @include tablet-screen {
-      font-size: 8rem;
-      margin: 2.5rem 0;
-    }
-
-    @include small-tablet-screen {
+  .scroll-content {
+    // border: 2px solid red;
+    h2 {
+      margin: 1rem 0;
+      position: relative;
       font-size: 6rem;
-      margin: 2.5rem 0;
-    }
-
-    @include large-desktop-screen {
-      font-size: 8rem;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    span {
-      position: absolute;
-      top: -2rem;
-      font-family: "Neue Montreal Light", Arial, Helvetica, sans-serif;
-      font-weight: 300;
-      font-size: 3.6rem;
+      letter-spacing: 0.165rem;
+      text-transform: uppercase;
       -webkit-text-stroke: 1px $white;
+
       @include mobile-screen {
-        font-size: 2.6rem;
+        font-size: 4.2rem;
       }
 
-      &.num-l {
-        left: -4.5rem;
+      @include tablet-screen {
+        font-size: 8rem;
+        margin: 2.5rem 0;
+      }
+
+      @include small-tablet-screen {
+        font-size: 6rem;
+        margin: 2.5rem 0;
+      }
+
+      @include large-desktop-screen {
+        font-size: 8rem;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      span {
+        position: absolute;
+        top: -2rem;
+        font-family: "Neue Montreal Light", Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        font-size: 3.6rem;
+        -webkit-text-stroke: 1px $white;
         @include mobile-screen {
-          left: -3.5rem;
+          font-size: 2.6rem;
+        }
+
+        &.num-l {
+          left: -4.5rem;
+          @include mobile-screen {
+            left: -3.5rem;
+          }
+        }
+
+        &.num-r {
+          left: auto;
         }
       }
 
-      &.num-r {
-        left: auto;
+      &.light {
+        color: transparent;
+        opacity: 0.2;
       }
-    }
-
-    &.light {
-      color: transparent;
-      opacity: 0.2;
     }
   }
 }
 
 #projects-img {
+  position: fixed;
   overflow: hidden;
-  position: absolute;
   height: 100%;
   width: 100%;
   z-index: -1;
