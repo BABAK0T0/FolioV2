@@ -12,6 +12,9 @@ body {
   }
 }
 
+/**
+* BIO SECTION
+*/
 #about {
   font-family: "Neue Montreal Light";
   font-size: 2.6rem;
@@ -32,6 +35,7 @@ header {
   position: fixed;
   top: 5rem;
   right: 10rem;
+  z-index: 2;
 }
 
 main {
@@ -46,6 +50,7 @@ main {
 */
 #projects {
   // border: 2px solid rebeccapurple;
+  max-height: 80vh;
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
@@ -54,7 +59,7 @@ main {
   align-items: flex-start;
   justify-content: center;
   // padding-top: 5rem;
-  padding-bottom: 20rem;
+  padding-bottom: 16rem;
   padding-left: 10rem;
 
   @include mobile-screen {
@@ -83,6 +88,8 @@ main {
 
   .scroll-content {
     // border: 2px solid red;
+    min-height: 60vh;
+    max-height: 80vh;
     h2 {
       margin: 1rem 0;
       position: relative;
@@ -145,8 +152,9 @@ main {
 }
 
 #projects-img {
+  // background: blue;
   position: fixed;
-  overflow: hidden;
+  // overflow: hidden;
   height: 100%;
   width: 100%;
   z-index: -1;
@@ -178,6 +186,18 @@ main {
 
   .wrapper-img:nth-child(2) {
     transform: translate(60%, -150%);
+  }
+
+  .wrapper-img:nth-child(3) {
+    transform: translate(170%, -250%);
+  }
+
+  .wrapper-img:nth-child(4) {
+    transform: translate(280%, -350%);
+  }
+
+  .wrapper-img:nth-child(5) {
+    transform: translate(390%, -450%);
   }
 }
 
