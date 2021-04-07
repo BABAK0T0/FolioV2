@@ -1,5 +1,6 @@
 // Inspired By https://codepen.io/babak0t0/pen/JjErMdG
-const imagesLoaded = require("imagesloaded");
+import FontFaceObserver from "fontfaceobserver";
+import imagesLoaded from "imagesloaded";
 
 // const lerp = (a, b, n) => (1 - n) * a + n * b;
 
@@ -21,10 +22,20 @@ export default class SmoothScroll {
 
     this.dom = {
       main: document.querySelector("main"),
+      // Titles part
       el: document.querySelector("#projects"),
       content: document.querySelector(".scroll-content"),
       contents: [...document.querySelectorAll(".scroll-content h2")],
+      // Images part
+      elImg: document.querySelector("#projects-img"),
+      elImgContents: [
+        ...document.querySelectorAll("#projects-img .wrapper-img"),
+      ],
     };
+
+    this.firstChildRect = this.dom.elImgContents[0].getBoundingClientRect();
+    this.secondChildRect = this.dom.elImgContents[1].getBoundingClientRect();
+    this.distanceNextChild = 0;
 
     this.raf = null;
 
@@ -47,7 +58,7 @@ export default class SmoothScroll {
     ].getBoundingClientRect().bottom;
     const scrollElemsHeight = bottomLastChild - topFirstChild;
 
-    document.querySelector("main").style.height = `${
+    this.dom.main.style.height = `${
       bodyClientHeight + (scrollElemsHeight - contentClientHeight)
     }px`;
   }
@@ -58,7 +69,39 @@ export default class SmoothScroll {
   }
 
   preload() {
-    imagesLoaded(this.dom.content, (instance) => {
+    const fontNeueMontrealBold = new Promise((resolve) => {
+      new FontFaceObserver("Neue Montreal Bold").load().then(() => {
+        resolve();
+      });
+    });
+    const fontNeueMontrealBoldItalic = new Promise((resolve) => {
+      new FontFaceObserver("Neue Montreal Bold Italic").load().then(() => {
+        resolve();
+      });
+    });
+    const fontNeueMontrealLight = new Promise((resolve) => {
+      new FontFaceObserver("Neue Montreal Light").load().then(() => {
+        resolve();
+      });
+    });
+    const fontNeueMontrealLightItalic = new Promise((resolve) => {
+      new FontFaceObserver("Neue Montreal Light Italic").load().then(() => {
+        resolve();
+      });
+    });
+    const preloadImages = new Promise((resolve) => {
+      imagesLoaded(this.dom.content, { background: true }, () => {
+        resolve();
+      });
+    });
+
+    Promise.all([
+      fontNeueMontrealBold,
+      fontNeueMontrealBoldItalic,
+      fontNeueMontrealLight,
+      fontNeueMontrealLightItalic,
+      preloadImages,
+    ]).then(() => {
       this.setHeight();
     });
   }
@@ -71,6 +114,18 @@ export default class SmoothScroll {
     this.data.last += (this.data.current - this.data.last) * this.data.ease;
     this.data.rounded = Math.round(this.data.last * 100) / 100;
     this.dom.content.style.transform = `translate3d(0, -${this.data.rounded}px, 0)`;
+
+    const distanceCenterFirst =
+      this.firstChildRect.left + this.firstChildRect.width / 2;
+    const distanceCenterSecond =
+      this.secondChildRect.left + this.secondChildRect.width / 2;
+
+    this.distanceNextChild = distanceCenterSecond - distanceCenterFirst;
+
+    const scrollNextChild = (this.data.rounded / 100) * this.distanceNextChild;
+
+    // const offset = window.innerWidth - distanceCenterSecond;
+    this.dom.elImg.style.transform = `translate3d(-${scrollNextChild}px, 0, 0)`;
 
     this.requestAnimationFrame();
   }
