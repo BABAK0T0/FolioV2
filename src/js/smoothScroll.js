@@ -9,12 +9,16 @@ import imagesLoaded from "imagesloaded";
 //   width: window.innerWidth,
 // };
 
+const normalizeBetweenTwoRanges = (val, minVal, maxVal, newMin, newMax) => {
+  return newMin + ((val - minVal) * (newMax - newMin)) / (maxVal - minVal);
+};
+
 export default class SmoothScroll {
   constructor() {
     this.bindMethods();
 
     this.data = {
-      ease: 0.1,
+      ease: 0.05,
       current: 0,
       last: 0,
       rounded: 0,
@@ -22,20 +26,18 @@ export default class SmoothScroll {
 
     this.dom = {
       main: document.querySelector("main"),
-      // Titles part
-      el: document.querySelector("#projects"),
       content: document.querySelector(".scroll-content"),
       contents: [...document.querySelectorAll(".scroll-content h2")],
-      // Images part
-      elImg: document.querySelector("#projects-img"),
-      elImgContents: [
-        ...document.querySelectorAll("#projects-img .wrapper-img"),
+      imgContent: document.querySelector(".scroll-content-img"),
+      imgContents: [
+        ...document.querySelectorAll(".scroll-content-img .wrapper-img"),
       ],
     };
 
-    this.firstChildRect = this.dom.elImgContents[0].getBoundingClientRect();
-    this.secondChildRect = this.dom.elImgContents[1].getBoundingClientRect();
-    this.distanceNextChild = 0;
+    this.scrollableHeight = 0;
+    this.scrollableWidth =
+      this.dom.imgContent.getBoundingClientRect().width -
+      this.dom.imgContents[0].getBoundingClientRect().width;
 
     this.raf = null;
 
@@ -49,17 +51,11 @@ export default class SmoothScroll {
   }
 
   setHeight() {
-    const bodyClientHeight = document.body.clientHeight;
-    const contentClientHeight = this.dom.contents[0].clientHeight;
-
-    const topFirstChild = this.dom.contents[0].getBoundingClientRect().top;
-    const bottomLastChild = this.dom.contents[
-      this.dom.contents.length - 1
-    ].getBoundingClientRect().bottom;
-    const scrollElemsHeight = bottomLastChild - topFirstChild;
+    this.scrollableHeight =
+      this.dom.content.clientHeight - this.dom.contents[0].clientHeight;
 
     this.dom.main.style.height = `${
-      bodyClientHeight + (scrollElemsHeight - contentClientHeight)
+      document.body.clientHeight + this.scrollableHeight
     }px`;
   }
 
@@ -111,27 +107,31 @@ export default class SmoothScroll {
   }
 
   run() {
+    // Ease
     this.data.last += (this.data.current - this.data.last) * this.data.ease;
     this.data.rounded = Math.round(this.data.last * 100) / 100;
+
+    // Normalize scrollY to [0,1]
+    this.dataNormarlized = normalizeBetweenTwoRanges(
+      this.data.rounded,
+      0,
+      this.scrollableHeight,
+      0,
+      1
+    );
+
+    // Translate titles on Y axis
     this.dom.content.style.transform = `translate3d(0, -${this.data.rounded}px, 0)`;
 
-    const distanceCenterFirst =
-      this.firstChildRect.left + this.firstChildRect.width / 2;
-    const distanceCenterSecond =
-      this.secondChildRect.left + this.secondChildRect.width / 2;
-
-    this.distanceNextChild = distanceCenterSecond - distanceCenterFirst;
-
-    const scrollNextChild = (this.data.rounded / 100) * this.distanceNextChild;
-
-    // const offset = window.innerWidth - distanceCenterSecond;
-    this.dom.elImg.style.transform = `translate3d(-${scrollNextChild}px, 0, 0)`;
+    // Translate images on X axis depending on scrollY
+    this.dom.imgContent.style.transform = `translate3d(-${
+      this.dataNormarlized * this.scrollableWidth
+    }px, 0, 0)`;
 
     this.requestAnimationFrame();
   }
 
   on() {
-    this.setHeight();
     this.addEvents();
 
     this.requestAnimationFrame();
