@@ -1,13 +1,5 @@
-// Inspired By https://codepen.io/babak0t0/pen/JjErMdG
 import FontFaceObserver from "fontfaceobserver";
 import imagesLoaded from "imagesloaded";
-
-// const lerp = (a, b, n) => (1 - n) * a + n * b;
-
-// const config = {
-//   height: window.innerHeight,
-//   width: window.innerWidth,
-// };
 
 const normalizeBetweenTwoRanges = (val, minVal, maxVal, newMin, newMax) => {
   return newMin + ((val - minVal) * (newMax - newMin)) / (maxVal - minVal);
@@ -26,18 +18,14 @@ export default class SmoothScroll {
 
     this.dom = {
       main: document.querySelector("main"),
-      content: document.querySelector(".scroll-content"),
-      contents: [...document.querySelectorAll(".scroll-content h2")],
-      imgContent: document.querySelector(".scroll-content-img"),
-      imgContents: [
-        ...document.querySelectorAll(".scroll-content-img .wrapper-img"),
-      ],
+      titleContainer: document.querySelector(".scroll-content"),
+      title: document.querySelector(".scroll-content h2"),
+      imageContainer: document.querySelector(".scroll-content-img"),
+      image: document.querySelector(".scroll-content-img .wrapper-img"),
     };
 
     this.scrollableHeight = 0;
-    this.scrollableWidth =
-      this.dom.imgContent.getBoundingClientRect().width -
-      this.dom.imgContents[0].getBoundingClientRect().width;
+    this.scrollableWidth = 0;
 
     this.raf = null;
 
@@ -50,17 +38,22 @@ export default class SmoothScroll {
     );
   }
 
-  setHeight() {
+  setScrollSize() {
+    // Minus an element will set the last element at the default first element position
     this.scrollableHeight =
-      this.dom.content.clientHeight - this.dom.contents[0].clientHeight;
+      this.dom.titleContainer.clientHeight - this.dom.title.clientHeight;
 
+    this.scrollableWidth =
+      this.dom.imageContainer.clientWidth - this.dom.image.clientWidth;
+
+    // Make the content scrollable instead of the document.body
     this.dom.main.style.height = `${
       document.body.clientHeight + this.scrollableHeight
     }px`;
   }
 
   resize() {
-    this.setHeight();
+    this.setScrollSize();
     this.scroll();
   }
 
@@ -86,7 +79,7 @@ export default class SmoothScroll {
       });
     });
     const preloadImages = new Promise((resolve) => {
-      imagesLoaded(this.dom.content, { background: true }, () => {
+      imagesLoaded(this.dom.titleContainer, { background: true }, () => {
         resolve();
       });
     });
@@ -98,7 +91,7 @@ export default class SmoothScroll {
       fontNeueMontrealLightItalic,
       preloadImages,
     ]).then(() => {
-      this.setHeight();
+      this.setScrollSize();
     });
   }
 
@@ -121,10 +114,10 @@ export default class SmoothScroll {
     );
 
     // Translate titles on Y axis
-    this.dom.content.style.transform = `translate3d(0, -${this.data.rounded}px, 0)`;
+    this.dom.titleContainer.style.transform = `translate3d(0, -${this.data.rounded}px, 0)`;
 
     // Translate images on X axis depending on scrollY
-    this.dom.imgContent.style.transform = `translate3d(-${
+    this.dom.imageContainer.style.transform = `translate3d(-${
       this.dataNormarlized * this.scrollableWidth
     }px, 0, 0)`;
 
