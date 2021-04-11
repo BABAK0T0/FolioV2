@@ -6,7 +6,6 @@
 body {
   height: 100vh;
   background: $black;
-  // border: 2px solid orchid;
   @include mobile-screen {
     flex-direction: column;
   }
@@ -22,10 +21,6 @@ body {
   -webkit-text-stroke: 1px $white;
   text-align: initial;
 
-  @include tablet-screen {
-    font-size: 3.6rem;
-  }
-
   @include mobile-screen {
     margin-right: 6rem;
   }
@@ -36,21 +31,30 @@ header {
   top: 5rem;
   right: 10rem;
   z-index: 2;
+  @include mobile-screen-mini {
+    right: 7.5rem;
+  }
+
+  @include mobile-screen-plus {
+    right: 12rem;
+  }
+
+  @include mobile-tablet {
+    top: 2rem;
+    right: 4rem;
+  }
 }
 
 main {
-  // border: 2px solid green;
   position: relative;
   height: 100vh;
   width: 100%;
-  // width: 100vw;
 }
 
 /**
 * PROJECTS SECTION
 */
 #projects {
-  // border: 2px solid rebeccapurple;
   max-height: 80vh;
   position: fixed;
   top: 50%;
@@ -59,36 +63,23 @@ main {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  // padding-top: 5rem;
   padding-bottom: 16rem;
   padding-left: 10rem;
 
+  @include mobile-screen-mini {
+    padding-left: 7rem;
+  }
+
   @include mobile-screen {
     align-items: center;
-    padding-left: 0;
     padding-top: 10rem;
   }
 
-  @include small-tablet-screen {
-    align-items: center;
-    padding-left: 0;
-
-    justify-content: flex-end;
-    padding-top: 0;
-    padding-bottom: 2rem;
-  }
-
   @include tablet-screen {
-    align-items: center;
-    padding-left: 0;
-
-    justify-content: flex-end;
-    padding-top: 0;
-    padding-bottom: 2rem;
+    padding-left: 24rem;
   }
 
   .scroll-content {
-    // border: 2px solid red;
     // min-height: 60vh;
     // max-height: 80vh;
     h2 {
@@ -101,16 +92,6 @@ main {
 
       @include mobile-screen {
         font-size: 4.2rem;
-      }
-
-      @include tablet-screen {
-        font-size: 8rem;
-        margin: 2.5rem 0;
-      }
-
-      @include small-tablet-screen {
-        font-size: 6rem;
-        margin: 2.5rem 0;
       }
 
       @include large-desktop-screen {
@@ -153,15 +134,32 @@ main {
 }
 
 #projects-img {
-  // border: 2px solid rebeccapurple;
-  z-index: -1;
+  z-index: 0;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-10%, -50%);
 
+  @include mobile-screen {
+    left: 10%;
+    transform: translate(0%, -50%);
+  }
+
+  @include mobile-tablet {
+    left: 9%;
+    transform: translate(0%, -50%);
+  }
+
+  @include mobile-screen-plus {
+    left: 14%;
+  }
+
+  @include tablet-screen {
+    left: 10%;
+    transform: translate(0%, -50%);
+  }
+
   .scroll-content-img {
-    // border: 2px solid red;
     display: flex;
     gap: 10rem;
 
@@ -172,6 +170,11 @@ main {
       @include mobile-screen {
         height: 200px;
         width: 300px;
+      }
+
+      @include mobile-tablet {
+        height: 300px;
+        width: 400px;
       }
 
       @include large-desktop-screen {
@@ -185,22 +188,6 @@ main {
       }
     }
   }
-
-  // .wrapper-img:nth-child(2) {
-  //   transform: translate(60%, -150%);
-  // }
-
-  // .wrapper-img:nth-child(3) {
-  //   transform: translate(170%, -250%);
-  // }
-
-  // .wrapper-img:nth-child(4) {
-  //   transform: translate(280%, -350%);
-  // }
-
-  // .wrapper-img:nth-child(5) {
-  //   transform: translate(390%, -450%);
-  // }
 }
 
 /**

@@ -29,13 +29,6 @@ header {
     @include mobile-screen {
       font-size: 6.4rem;
     }
-
-    @include small-tablet-screen {
-      font-size: 12.4rem;
-    }
-    @include tablet-screen {
-      font-size: 16.4rem;
-    }
   }
 }
 
@@ -64,16 +57,6 @@ header {
       margin-bottom: 0;
       font-size: 2rem;
       line-height: 4.4rem;
-    }
-
-    @include small-tablet-screen {
-      line-height: 4.8rem;
-      font-size: 3.8rem;
-    }
-
-    @include tablet-screen {
-      line-height: 6rem;
-      font-size: 4.5rem;
     }
   }
 }

@@ -57,7 +57,6 @@
 */
 @mixin footer_ {
   footer {
-    // border: 2px solid blue;
     position: fixed;
     bottom: 0;
     height: 20vh;
@@ -74,6 +73,11 @@
       padding-right: 6rem;
     }
 
+    @include mobile-tablet {
+      padding-left: 6rem;
+      padding-right: 6rem;
+    }
+
     h3 {
       flex: 1;
       text-align: left;
@@ -82,11 +86,6 @@
       @include mobile-screen {
         font-weight: 700;
         font-size: 1.4rem;
-      }
-
-      @include common-tablet-screen {
-        font-weight: 700;
-        font-size: 1.8rem;
       }
 
       @include large-desktop-screen {
@@ -110,8 +109,8 @@
         display: none;
       }
 
-      @include small-tablet-screen {
-        visibility: hidden;
+      @include mobile-tablet {
+        display: none;
       }
     }
 
@@ -129,8 +128,8 @@
         line-height: 1.8rem;
       }
 
-      @include small-tablet-screen {
-        line-height: 3.2rem;
+      @include mobile-tablet {
+        line-height: 2.2rem;
       }
 
       a {
@@ -143,8 +142,8 @@
           font-size: 1.6rem;
         }
 
-        @include small-tablet-screen {
-          font-size: 2.6rem;
+        @include mobile-tablet {
+          font-size: 1.6rem;
         }
       }
     }
