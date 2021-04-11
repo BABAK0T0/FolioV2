@@ -6,7 +6,7 @@
 body {
   height: 100vh;
   background: $black;
-
+  // border: 2px solid orchid;
   @include mobile-screen {
     flex-direction: column;
   }
@@ -43,6 +43,7 @@ main {
   position: relative;
   height: 100vh;
   width: 100%;
+  // width: 100vw;
 }
 
 /**
@@ -88,8 +89,8 @@ main {
 
   .scroll-content {
     // border: 2px solid red;
-    min-height: 60vh;
-    max-height: 80vh;
+    // min-height: 60vh;
+    // max-height: 80vh;
     h2 {
       margin: 1rem 0;
       position: relative;
@@ -152,53 +153,54 @@ main {
 }
 
 #projects-img {
-  // background: blue;
-  position: fixed;
-  // overflow: hidden;
-  height: 100%;
-  width: 100%;
+  // border: 2px solid rebeccapurple;
   z-index: -1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-10%, -50%);
 
-  .wrapper-img {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid $white;
-    height: 360px;
-    width: 620px;
+  .scroll-content-img {
+    // border: 2px solid red;
+    display: flex;
+    gap: 10rem;
 
-    @include mobile-screen {
-      height: 200px;
-      width: 300px;
+    .wrapper-img {
+      height: 360px;
+      width: 620px;
+
+      @include mobile-screen {
+        height: 200px;
+        width: 300px;
+      }
+
+      @include large-desktop-screen {
+        height: 480px;
+        width: 820px;
+      }
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
     }
-
-    @include large-desktop-screen {
-      height: 480px;
-      width: 820px;
-    }
-
-    img {
-      width: 100%;
-      object-fit: cover;
-    }
   }
 
-  .wrapper-img:nth-child(2) {
-    transform: translate(60%, -150%);
-  }
+  // .wrapper-img:nth-child(2) {
+  //   transform: translate(60%, -150%);
+  // }
 
-  .wrapper-img:nth-child(3) {
-    transform: translate(170%, -250%);
-  }
+  // .wrapper-img:nth-child(3) {
+  //   transform: translate(170%, -250%);
+  // }
 
-  .wrapper-img:nth-child(4) {
-    transform: translate(280%, -350%);
-  }
+  // .wrapper-img:nth-child(4) {
+  //   transform: translate(280%, -350%);
+  // }
 
-  .wrapper-img:nth-child(5) {
-    transform: translate(390%, -450%);
-  }
+  // .wrapper-img:nth-child(5) {
+  //   transform: translate(390%, -450%);
+  // }
 }
 
 /**
