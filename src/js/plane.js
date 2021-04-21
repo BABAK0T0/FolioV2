@@ -8,6 +8,7 @@ export default class Plane {
     this.link = opts.link;
     this.texture = opts.texture;
     this.wireframe = opts.wireframe;
+    this.position = opts.position;
 
     this.add();
   }
@@ -24,10 +25,9 @@ export default class Plane {
       wireframe: this.wireframe,
     });
 
-    this.geometry = new THREE.PlaneGeometry(2, 1, 10, 10);
+    this.geometry = new THREE.PlaneGeometry(1, 1, 10, 10);
     this.mesh = new THREE.Mesh(this.geometry, this.material);
-    // this.mesh.position.set()
-    // this.scene.add(this.mesh);
+    this.mesh.scale.set(this.position.width, this.position.height, 1);
   }
 
   remove() {

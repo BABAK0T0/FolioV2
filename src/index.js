@@ -1,5 +1,8 @@
 import SmoothScroll from "./js/smoothScroll";
-// import Sketch from "./js/sketch";
+import Sketch from "./js/sketch";
 
-new SmoothScroll();
-// new Sketch();
+const scroll = new SmoothScroll();
+
+new Sketch({
+  scroll: scroll.getScroll,
+});

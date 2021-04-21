@@ -9,6 +9,11 @@ export default class SmoothScroll {
   constructor() {
     this.bindMethods();
 
+    this.smoothScroll = {
+      x: 0,
+      y: 0,
+    };
+
     this.data = {
       ease: 0.05,
       current: 0,
@@ -33,7 +38,7 @@ export default class SmoothScroll {
   }
 
   bindMethods() {
-    ["resize", "scroll", "run"].forEach(
+    ["resize", "scroll", "run", "getScroll"].forEach(
       (fn) => (this[fn] = this[fn].bind(this))
     );
   }
@@ -121,7 +126,14 @@ export default class SmoothScroll {
       this.dataNormarlized * this.scrollableWidth
     }px, 0, 0)`;
 
+    this.smoothScroll.y = this.data.rounded;
+    this.smoothScroll.x = this.dataNormarlized * this.scrollableWidth;
+
     this.requestAnimationFrame();
+  }
+
+  getScroll() {
+    return this.smoothScroll;
   }
 
   on() {
