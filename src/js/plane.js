@@ -7,8 +7,8 @@ export default class Plane {
     this.scene = opts.scene;
     this.link = opts.link;
     this.texture = opts.texture;
-    this.wireframe = opts.wireframe;
     this.position = opts.position;
+    this.wireframe = opts.wireframe;
 
     this.add();
   }
@@ -19,8 +19,9 @@ export default class Plane {
 
     this.material = new THREE.ShaderMaterial({
       uniforms: {
-        // uTime: { value: 0 },
+        uTime: { value: 0 },
         uTexture: { value: 0 },
+        uVelocity: { value: 0 },
       },
       vertexShader: vertex,
       fragmentShader: fragment,

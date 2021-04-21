@@ -12,6 +12,7 @@ export default class SmoothScroll {
     this.smoothScroll = {
       x: 0,
       y: 0,
+      velocity: 0,
     };
 
     this.data = {
@@ -128,6 +129,8 @@ export default class SmoothScroll {
 
     this.smoothScroll.y = this.data.rounded;
     this.smoothScroll.x = this.dataNormarlized * this.scrollableWidth;
+    this.smoothScroll.velocity =
+      (this.data.current - this.data.rounded) / window.innerWidth;
 
     this.requestAnimationFrame();
   }

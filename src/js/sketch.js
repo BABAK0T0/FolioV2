@@ -132,10 +132,13 @@ export default class Sketch {
   render() {
     // Update uTime on each frame
     this.elapsedTime = this.clock.getElapsedTime();
-    // this.material.uniforms.uTime.value = this.elapsedTime;
 
     // Update planes position
     this.setPosition();
+    this.group.children.forEach((m) => {
+      m.material.uniforms.uTime.value = this.elapsedTime;
+      m.material.uniforms.uVelocity.value = this.scroll().velocity * 3;
+    });
 
     // Render
     this.renderer.render(this.scene, this.camera);
