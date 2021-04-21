@@ -14,10 +14,13 @@ export default class Plane {
   }
 
   add() {
+    const texture = new THREE.Texture(this.texture);
+    texture.needsUpdate = true;
+
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         // uTime: { value: 0 },
-        // uTexture: { value: 0 },
+        uTexture: { value: 0 },
       },
       vertexShader: vertex,
       fragmentShader: fragment,
@@ -25,7 +28,8 @@ export default class Plane {
       wireframe: this.wireframe,
     });
 
-    this.geometry = new THREE.PlaneGeometry(1, 1, 10, 10);
+    this.material.uniforms.uTexture.value = texture;
+    this.geometry = new THREE.PlaneGeometry(1, 1, 20, 20);
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.mesh.scale.set(this.position.width, this.position.height, 1);
   }

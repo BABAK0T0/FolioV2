@@ -10,7 +10,7 @@ export default class Sketch {
     this.dom = {
       canvas: document.querySelector("canvas.webgl"),
       images: [
-        ...document.querySelectorAll(".scroll-content-img .wrapper-img"),
+        ...document.querySelectorAll(".scroll-content-img .wrapper-img img"),
       ],
     };
 
@@ -61,7 +61,7 @@ export default class Sketch {
       const plane = new Plane({
         scene: this.scene,
         link: "#",
-        texture: null,
+        texture: DOMimg,
         wireframe: false,
         position: { left, top, height, width },
       });
